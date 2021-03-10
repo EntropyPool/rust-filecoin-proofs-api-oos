@@ -12,6 +12,7 @@ mod types;
 pub use crate::registry::{RegisteredPoStProof, RegisteredSealProof, Version};
 pub use crate::types::{PrivateReplicaInfo, PublicReplicaInfo};
 
+pub use filecoin_proofs_v1::PrivateSectorPathInfo;
 pub use filecoin_proofs_v1::storage_proofs::error::Error as StorageProofsError;
 pub use filecoin_proofs_v1::storage_proofs::fr32;
 pub use filecoin_proofs_v1::storage_proofs::post::election::Candidate;

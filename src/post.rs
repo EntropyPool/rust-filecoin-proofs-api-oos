@@ -106,6 +106,10 @@ fn generate_single_vanilla_proof_inner<Tree: 'static + MerkleTreeTrait>(
         comm_r,
         cache_dir,
         replica_path,
+        cache_in_oss,
+        replica_in_oss,
+        cache_sector_path_info,
+        replica_sector_path_info,
     } = replica;
 
     ensure!(
@@ -113,10 +117,22 @@ fn generate_single_vanilla_proof_inner<Tree: 'static + MerkleTreeTrait>(
         "can only generate the same kind of PoSt"
     );
 
+    /*
     let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new(
         replica_path.clone(),
         *comm_r,
         cache_dir.into(),
+    )?;
+    */
+
+    let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new_with_oss_config(
+        replica_path.clone(),
+        *replica_in_oss,
+        replica_sector_path_info,
+        *comm_r,
+        cache_dir.into(),
+        *cache_in_oss,
+        cache_sector_path_info,
     )?;
 
     let vanilla_proof: FallbackPoStSectorProof<Tree> =
@@ -219,16 +235,33 @@ fn generate_winning_post_inner<Tree: 'static + MerkleTreeTrait>(
             comm_r,
             cache_dir,
             replica_path,
+            cache_in_oss,
+            replica_in_oss,
+            cache_sector_path_info,
+            replica_sector_path_info,
         } = info;
 
         ensure!(
             registered_proof == &registered_proof_v1,
             "can only generate the same kind of PoSt"
         );
-        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::new(
+
+        /*
+        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new(
             replica_path.clone(),
             *comm_r,
             cache_dir.into(),
+        )?;
+        */
+
+        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new_with_oss_config(
+            replica_path.clone(),
+            *replica_in_oss,
+            replica_sector_path_info,
+            *comm_r,
+            cache_dir.into(),
+            *cache_in_oss,
+            cache_sector_path_info,
         )?;
 
         replicas_v1.push((*id, info_v1));
@@ -399,16 +432,33 @@ fn generate_window_post_inner<Tree: 'static + MerkleTreeTrait>(
             comm_r,
             cache_dir,
             replica_path,
+            cache_in_oss,
+            replica_in_oss,
+            cache_sector_path_info,
+            replica_sector_path_info,
         } = info;
 
         ensure!(
             registered_proof == &registered_proof_v1,
             "can only generate the same kind of PoSt"
         );
-        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::new(
+
+        /*
+        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new(
             replica_path.clone(),
             *comm_r,
             cache_dir.into(),
+        )?;
+        */
+
+        let info_v1 = filecoin_proofs_v1::PrivateReplicaInfo::<Tree>::new_with_oss_config(
+            replica_path.clone(),
+            *replica_in_oss,
+            replica_sector_path_info,
+            *comm_r,
+            cache_dir.into(),
+            *cache_in_oss,
+            cache_sector_path_info,
         )?;
 
         replicas_v1.insert(*id, info_v1);
